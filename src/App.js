@@ -1,13 +1,17 @@
 import React from 'react';
 import axios from 'axios';
+import User from './components/User';
+import FollowersList from './components/FollowerList';
 
 class App extends React.Component {
 
   state = {
-    user: ''
+    user: '',
+    followersArray: []
   }
 
   componentDidMount() {
+    console.log('component has MOUNTED');
     axios.get(`https://api.github.com/users/jmerz826`)
       .then(res => {
         this.setState({
@@ -19,6 +23,19 @@ class App extends React.Component {
           followerCount: res.data.followers,
         })
       })
+    axios.get('https://api.github.com/users/jmerz826/followers')
+      .then(res => {
+        // console.log(res.data);
+        this.setState({
+          ...this.state,
+          followersArray: res.data
+        })
+      })
+      .catch(err => console.error(err));
+  }
+
+  componentDidUpdate() {
+    console.log('Component has UPDATED');
   }
 
   handleChange = (e) => {
@@ -60,13 +77,14 @@ class App extends React.Component {
           />
           <button onClick={this.handleSearch}>Search</button>
         </form>
-        <div id='user-card'>
-          <img src={this.state.avatar} />
-          <h2>{this.state.name}</h2>
-          <h3>{this.state.username}</h3>
-          <h3>Total Repos: {this.state.repos}</h3>
-          <h3>Total Followers: { this.state.followerCount}</h3>
-        </div>
+        <User
+          avatar={this.state.avatar}
+          name={this.state.name}
+          username={this.state.username}
+          repos={this.state.repos}
+          followerCount={ this.state.followerCount}
+        />
+        <FollowersList followersArray={this.state.followersArray}/>
       </div>
     );
   }
