@@ -8,7 +8,7 @@ const FollowersList = props => {
     console.log(followersArray);
     return (
         <div>
-            <h1>Followers List: </h1>
+            <h2>Followers List: </h2>
             <div id='followers'>
                 {followersArray.map(follower => {
                     return <Follower follower={follower} key={ follower.id}/>
