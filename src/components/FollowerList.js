@@ -11,7 +11,7 @@ const FollowersList = props => {
             <h1>Followers List: </h1>
             <div id='followers'>
                 {followersArray.map(follower => {
-                    return <Follower follower={follower} />
+                    return <Follower follower={follower} key={ follower.id}/>
                 })}
             </div>
         </div>

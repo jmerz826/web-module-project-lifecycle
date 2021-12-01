@@ -2,6 +2,45 @@ import React from 'react';
 import axios from 'axios';
 import User from './components/User';
 import FollowersList from './components/FollowerList';
+import styled from 'styled-components';
+
+const StyledApp = styled.div`
+  h1{
+    font-size: 5rem;
+    margin-bottom:0;
+    text-transform: uppercase;
+  }
+
+  form{
+    font-size: 2rem;
+    margin-bottom:2%;
+    display:flex;
+  }
+
+  input{
+    background-color:black;
+    color:white;
+    font-size:inherit;
+    font-family: inherit;
+    padding:1%;
+    border:none;
+    width:60%;
+    margin-right: 0.5%;
+  }
+
+  button{
+    font-size:inherit;
+    font-family:inherit;
+    padding:1%;
+    background-color:lightgray;
+    color:white;
+    border:none;
+  }
+
+  button:hover{
+    cursor: pointer;
+  }
+`
 
 class App extends React.Component {
 
@@ -11,7 +50,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log('component has MOUNTED');
+    // console.log('component has MOUNTED');
     axios.get(`https://api.github.com/users/jmerz826`)
       .then(res => {
         this.setState({
@@ -47,6 +86,17 @@ class App extends React.Component {
 
   handleSearch = (e) => {
     e.preventDefault();
+    axios.get(`https://api.github.com/users/${this.state.user}/followers`)
+      .then(res => {
+        console.log(res);
+        this.setState({
+          ...this.state,
+          followersArray: res.data
+        })
+      })
+      .catch(err => console.error(err))
+    ;
+    
     axios.get(`https://api.github.com/users/${this.state.user}`)
       .then(res => {
         console.log(res.data);
@@ -66,7 +116,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <StyledApp>
         <h1>Github Info</h1>
         <form>
           <input
@@ -85,7 +135,7 @@ class App extends React.Component {
           followerCount={ this.state.followerCount}
         />
         <FollowersList followersArray={this.state.followersArray}/>
-      </div>
+      </StyledApp>
     );
   }
 }
