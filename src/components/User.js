@@ -5,6 +5,9 @@ const StyledUser = styled.div`
     display:flex;
     img{
         width:300px;
+        border-top: 3px solid black;
+        border-bottom: 3px solid black;
+
     }
     div{
         display:flex;

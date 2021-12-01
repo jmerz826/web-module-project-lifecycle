@@ -40,6 +40,7 @@ const StyledApp = styled.div`
   button:hover{
     cursor: pointer;
   }
+  
 `
 
 class App extends React.Component {
