@@ -9,6 +9,10 @@ const StyledList = styled.div`
         flex-wrap:wrap;
         justify-content:space-evenly;
     }
+    h2{
+        font-size:2rem;
+        margin-left:1%;
+    }
 `
 
 const FollowersList = props => {

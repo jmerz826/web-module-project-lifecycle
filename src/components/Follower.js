@@ -3,11 +3,14 @@ import styled from "styled-components";
 
 const StyledFollower = styled.div`
     margin: 0 1%;
-    width: 10%;
     img{
-        width:100%;
+        width:200px;
     }
     text-decoration:underline;
+    text-align:center;
+    h3{
+        margin-top:0;
+    }
 `
 
 const Follower = props => {
